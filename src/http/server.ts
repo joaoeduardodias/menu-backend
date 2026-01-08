@@ -12,6 +12,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { errorHandler } from './error-handler'
+import { productRoutes } from './routes/products'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -22,8 +23,8 @@ app.setErrorHandler(errorHandler)
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'Api Documentation - Piramide',
-      description: 'API documentation for Piramide project',
+      title: 'Api Documentation - Menu Digital',
+      description: 'API documentation for Menu digital',
       version: '1.0.0',
     },
     components: {
@@ -47,6 +48,11 @@ app.register(fastifyCors)
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 })
+
+
+
+
+app.register(productRoutes)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }, () => {
   console.log(`🚀 HTTP server running on http://0.0.0.0:${env.PORT}`)
