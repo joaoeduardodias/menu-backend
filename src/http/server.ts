@@ -12,6 +12,8 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { errorHandler } from './error-handler'
+import { authRoutes } from './routes/auth'
+import { ordersRoutes } from './routes/orders'
 import { productRoutes } from './routes/products'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -53,6 +55,8 @@ app.register(fastifyJwt, {
 
 
 app.register(productRoutes)
+app.register(ordersRoutes)
+app.register(authRoutes)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }, () => {
   console.log(`🚀 HTTP server running on http://0.0.0.0:${env.PORT}`)

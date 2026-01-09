@@ -54,7 +54,7 @@ model User {
 }
 
 model Token {
-  id        String    @id @default(uuid())
+  id        String    @id @default(cuid())
   type      TokenType
   createdAt DateTime  @default(now()) @map("created_at")
   userId    String    @map("user_id")
@@ -64,7 +64,7 @@ model Token {
 }
 
 model Account {
-  id                String          @id @default(uuid())
+  id                String          @id @default(cuid())
   provider          AccountProvider
   providerAccountId String          @unique @map("provider_account_id")
   createdAt         DateTime        @default(now()) @map("created_at")
@@ -103,6 +103,8 @@ model Product {
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
 
+  couponProducts CouponProduct[]
+
   @@index([categoryId])
   @@index([popular])
   @@index([available])
@@ -117,7 +119,7 @@ model Order {
   addressId     String               @map("address_id")
   address       Address              @relation(fields: [addressId], references: [id])
   items         OrderItem[]
-  subtotal      Int
+  itemsTotal    Int
   deliveryFee   Int                  @default(500) @map("delivery_fee")
   total         Int
   paymentMethod PaymentMethod        @map("payment_method")
@@ -126,6 +128,8 @@ model Order {
   statusHistory OrderStatusHistory[]
   createdAt     DateTime             @default(now()) @map("created_at")
   updatedAt     DateTime             @updatedAt @map("updated_at")
+  couponId      String?              @map("coupon_id")
+  coupon        Coupon?              @relation(fields: [couponId], references: [id], onDelete: SetNull)
 
   @@index([customerId])
   @@index([status])
@@ -178,4 +182,54 @@ model OrderStatusHistory {
 
   @@index([orderId])
   @@map("order_status_history")
+}
+
+model Coupon {
+  id            String      @id @default(cuid())
+  code          String      @unique
+  type          CouponType
+  value         Float
+  minOrderValue Float?
+  maxUses       Int?
+  usedCount     Int         @default(0)
+  expiresAt     DateTime?
+  isActive      Boolean     @default(true)
+  deletedAt     DateTime?
+  createdAt     DateTime    @default(now())
+  scope         CouponScope @default(ALL_PRODUCTS)
+
+  usages   CouponUsage[]
+  orders   Order[]
+  products CouponProduct[]
+
+  @@map("coupons")
+}
+
+model CouponUsage {
+  id       String   @id @default(cuid())
+  couponId String
+  userId   String
+  usedAt   DateTime @default(now())
+
+  coupon Coupon @relation(fields: [couponId], references: [id])
+}
+
+model CouponProduct {
+  couponId  String
+  productId String
+
+  coupon  Coupon  @relation(fields: [couponId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([couponId, productId])
+}
+
+enum CouponScope {
+  ALL_PRODUCTS
+  PRODUCTS
+}
+
+enum CouponType {
+  PERCENT
+  FIXED
 }
