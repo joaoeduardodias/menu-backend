@@ -1,9 +1,8 @@
+import { env } from '@/lib/env'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
-
-import { env } from '@/lib/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -13,6 +12,8 @@ import {
 } from 'fastify-type-provider-zod'
 import { errorHandler } from './error-handler'
 import { authRoutes } from './routes/auth'
+import { cartRoutes } from './routes/cart'
+import { couponRoutes } from './routes/coupons'
 import { ordersRoutes } from './routes/orders'
 import { productRoutes } from './routes/products'
 
@@ -57,6 +58,8 @@ app.register(fastifyJwt, {
 app.register(productRoutes)
 app.register(ordersRoutes)
 app.register(authRoutes)
+app.register(cartRoutes)
+app.register(couponRoutes)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }, () => {
   console.log(`🚀 HTTP server running on http://0.0.0.0:${env.PORT}`)
