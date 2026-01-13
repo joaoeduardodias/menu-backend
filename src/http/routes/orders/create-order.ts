@@ -41,6 +41,7 @@ export async function createOrder(app: FastifyInstance) {
         schema: {
           tags: ['Orders'],
           summary: 'Create order',
+          operationId: 'createOrder',
           body: createOrderSchema,
           security: [{ bearerAuth: [] }],
           response: {

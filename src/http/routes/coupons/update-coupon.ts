@@ -35,6 +35,7 @@ export async function updateCoupon(app: FastifyInstance) {
     schema: {
       tags: ['Coupon'],
       summary: 'Update coupon',
+      operationId: 'updateCoupon',
       params: paramsSchema,
       body: updateCouponSchema,
       security: [{ bearerAuth: [] }],

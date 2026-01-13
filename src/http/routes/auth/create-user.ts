@@ -12,6 +12,8 @@ export async function createUser(app: FastifyInstance) {
       schema: {
         tags: ['Auth'],
         summary: 'Create user',
+        operationId: 'createUser',
+
         body: z.object({
           name: z.string().min(1, 'Nome é obrigatório'),
           email: z.email('Formato de E-mail inválido'),

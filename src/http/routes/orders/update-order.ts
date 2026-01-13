@@ -29,6 +29,7 @@ export async function updateOrder(app: FastifyInstance) {
       schema: {
         tags: ['Orders'],
         summary: 'Update order',
+        operationId: 'updateOrder',
         params: orderIdParamsSchema,
         body: updateOrderSchema,
         security: [

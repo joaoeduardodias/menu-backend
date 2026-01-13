@@ -25,6 +25,7 @@ export async function createProduct(app: FastifyInstance) {
       schema: {
         tags: ['Products'],
         summary: 'Create product',
+        operationId: 'createProduct',
         body: createProductSchema,
         security: [{ bearerAuth: [] }],
         response: {

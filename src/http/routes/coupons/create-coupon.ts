@@ -31,6 +31,8 @@ export async function createCoupon(app: FastifyInstance) {
     schema: {
       tags: ['Coupon'],
       summary: 'Create coupon',
+      operationId: 'createCoupon',
+
       body: createCouponSchema,
       security: [{ bearerAuth: [] }],
       response: {

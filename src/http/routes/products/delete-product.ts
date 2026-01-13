@@ -11,6 +11,7 @@ export async function deleteProduct(app: FastifyInstance) {
       schema: {
         tags: ['Products'],
         summary: 'Delete product',
+        operationId: 'deleteProduct',
         security: [{ bearerAuth: [] }],
         params: z.object({
           id: z.cuid(),

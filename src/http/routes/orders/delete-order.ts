@@ -14,6 +14,7 @@ export async function deleteOrder(app: FastifyInstance) {
       schema: {
         tags: ['Orders'],
         summary: 'Delete an order',
+        operationId: 'deleteOrder',
         security: [
           { bearerAuth: [] },
         ],

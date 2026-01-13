@@ -15,6 +15,8 @@ export async function deleteCoupon(app: FastifyInstance) {
       schema: {
         tags: ['Coupon'],
         summary: 'Delete coupon',
+        operationId: 'deleteCoupon',
+
         params: paramsSchema,
         security: [{ bearerAuth: [] }],
       },

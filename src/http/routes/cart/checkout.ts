@@ -31,6 +31,7 @@ export async function checkout(app: FastifyInstance) {
         schema: {
           tags: ['Cart'],
           summary: 'Checkout cart',
+          operationId: 'checkout',
           body: checkoutBodySchema,
           security: [
             { bearerAuth: [] },

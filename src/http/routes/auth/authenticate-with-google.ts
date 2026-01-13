@@ -9,6 +9,7 @@ export async function authenticateWithGoogle(app: FastifyInstance) {
     schema: {
       tags: ['Auth'],
       summary: 'Authenticate with Google.',
+      operationId: 'authenticateWithGoogle',
       body: z.object({
         code: z.string(),
       }),

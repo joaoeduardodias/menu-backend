@@ -24,6 +24,7 @@ export async function getCoupons(app: FastifyInstance) {
     schema: {
       tags: ['Coupon'],
       summary: 'List coupons',
+      operationId: 'getCoupons',
       querystring: getCouponsQuerySchema,
       security: [{ bearerAuth: [] }],
       response: {

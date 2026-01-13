@@ -3,13 +3,14 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod/v4'
 
-export async function listProducts(app: FastifyInstance) {
+export async function getProducts(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/products',
     {
       schema: {
         tags: ['Products'],
         summary: 'List products',
+        operationId: 'getProducts',
         querystring: z.object({
           page: z.coerce.number().int().min(1).default(1),
           limit: z.coerce.number().int().min(1).max(100).default(20),

@@ -17,6 +17,7 @@ export async function validateCoupon(app: FastifyInstance) {
       schema: {
         tags: ['Coupon'],
         summary: 'Validate coupon',
+        operationId: 'validateCoupon',
         body: validateCouponSchema,
         security: [{ bearerAuth: [] }],
         response: {

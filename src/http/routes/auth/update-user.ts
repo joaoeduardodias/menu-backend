@@ -18,6 +18,7 @@ export async function updateUser(app: FastifyInstance) {
       schema: {
         tags: ['Auth'],
         summary: 'Update user',
+        operationId: 'updateUser',
         body: updateUserSchema,
         security: [
           { bearerAuth: [] },

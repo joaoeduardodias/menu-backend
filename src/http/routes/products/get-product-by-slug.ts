@@ -4,13 +4,14 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 import { BadRequestError } from '../_errors/bad-request-error'
 
-export async function getProduct(app: FastifyInstance) {
+export async function getProductBySlug(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
     '/products/:slug',
     {
       schema: {
         tags: ['Products'],
         summary: 'Get product by slug',
+        operationId: 'getProductBySlug',
         params: z.object({
           slug: z.string("Slug é obrigatório").min(1),
         }),

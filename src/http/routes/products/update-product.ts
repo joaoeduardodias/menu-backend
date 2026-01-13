@@ -11,6 +11,7 @@ export async function updateProduct(app: FastifyInstance) {
       schema: {
         tags: ['Products'],
         summary: 'Update product',
+        operationId: 'updateProduct',
         security: [{ bearerAuth: [] }],
         params: z.object({
           id: z.cuid(),

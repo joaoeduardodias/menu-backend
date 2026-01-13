@@ -27,6 +27,8 @@ export async function getUsers(app: FastifyInstance) {
     schema: {
       tags: ['Auth'],
       summary: 'Get users.',
+      operationId: 'getUsers',
+
       querystring: getUsersQuerySchema,
       security: [
         { bearerAuth: [] },
